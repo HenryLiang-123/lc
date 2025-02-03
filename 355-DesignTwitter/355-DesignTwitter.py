@@ -33,8 +33,6 @@ class Twitter:
         result = []
         news_to_time_self = sorted([(self.tweet_to_time[i], i) for i in news_self], reverse=True)
         news_to_time_follower = sorted([(self.tweet_to_time[i], i) for i in news_follower], reverse=True)
-        print(news_self, news_follower)
-        print([self.tweet_to_time[i] for i in news_self], [self.tweet_to_time[i] for i in news_follower])
         while p1 < n_self and p2 < n_follower:
             tweetId_self = news_to_time_self[p1][1]
             tweetId_follower = news_to_time_follower[p2][1]
