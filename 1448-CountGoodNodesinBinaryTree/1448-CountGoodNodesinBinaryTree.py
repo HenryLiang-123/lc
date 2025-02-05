@@ -11,8 +11,7 @@ class Solution:
             if node is None:
                 return 0
             
-    
-            if root.val > node.val or prev_max > node.val:
+            if prev_max > node.val:
                 count = 0
             else:
                 count = 1
