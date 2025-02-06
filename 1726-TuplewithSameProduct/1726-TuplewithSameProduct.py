@@ -9,7 +9,6 @@ class Solution:
                 product_count[product] = product_count.get(product, 0) + 1
 
         result = 0
-        print(product_count)
         for key, value in product_count.items():
             if value >= 2:
                 result += math.perm(value, 2) * 4
