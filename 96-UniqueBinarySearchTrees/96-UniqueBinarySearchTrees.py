@@ -7,16 +7,14 @@ class Solution:
 
             if (left, right) in memo:
                 return memo[(left, right)]
-            
-            total = 0
 
-            for root in range(left, right+1):
-                left_bst = dfs(left, root-1)
-                right_bst = dfs(root+1, right)
-                total += left_bst * right_bst
+            total = 0
+            for root in range(left, right + 1):
+                left_trees = dfs(left, root - 1)
+                right_trees = dfs(root+1, right)
+                total += left_trees * right_trees
 
             memo[(left, right)] = total
             return memo[(left, right)]
 
-        return dfs(0, n-1)
-            
+        return dfs(1, n)
