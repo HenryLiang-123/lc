@@ -15,7 +15,7 @@ class Solution:
 
         def bfs():
             res = 0
-            while minHeap:
+            while len(seen) < n:
                 curr_cost, curr_node = heapq.heappop(minHeap)
                 if curr_node in seen:
                     continue
