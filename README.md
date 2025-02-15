@@ -1,2 +1,2 @@
 # lc
-My lc solutions
+My leetcode solutions
