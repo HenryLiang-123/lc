@@ -5,7 +5,6 @@ class Solution:
         elements.sort(reverse=True)
 
         time = (target - elements[0][0]) / elements[0][1]
-        print(elements)
         result = 1
 
         for i in range(1, n):
