@@ -1,3 +1,4 @@
+// Last updated: 2/17/2025, 2:03:56 PM
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         memo = {}
@@ -7,9 +8,11 @@ class Solution:
                 return memo[path_sum]
 
             if path_sum == amount:
+                memo[path_sum] = 0
                 return 0
 
             if path_sum > amount:
+                memo[path_sum] = float('inf')
                 return float('inf')
 
             min_coins = float('inf')
