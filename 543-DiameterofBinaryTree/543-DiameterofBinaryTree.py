@@ -1,33 +1,24 @@
+// Last updated: 2/17/2025, 2:51:08 PM
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-class Solution(object):
-    def diameterOfBinaryTree(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        class DiameterData(object):
-            def __init__(self, diameter, height):
-                self.diameter = diameter
-                self.height = height
-
-        def calculateDiameterAndHeight(root):
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        result = 0
+        def dfs(root):
+            nonlocal result
             if not root:
-                return DiameterData(0, 0)
+                return 0
 
-            leftData = calculateDiameterAndHeight(root.left)
-            rightData = calculateDiameterAndHeight(root.right)
+            left_len = dfs(root.left)
+            right_len = dfs(root.right)
 
-            currentDiameter = max(leftData.height + rightData.height,
-                                  max(leftData.diameter, rightData.diameter))
-            currentHeight = max(leftData.height, rightData.height) + 1
+            result = max(result, left_len + right_len)
 
-            return DiameterData(currentDiameter, currentHeight)
+            return max(left_len, right_len) + 1
 
-        data = calculateDiameterAndHeight(root)
-        return data.diameter
+        dfs(root)
+        return result
