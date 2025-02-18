@@ -1,3 +1,4 @@
+// Last updated: 2/18/2025, 5:08:46 PM
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -8,7 +9,6 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-
         # split
         slow, fast = head, head
         while fast.next and fast.next.next:
@@ -18,18 +18,18 @@ class Solution:
         second = slow.next
         slow.next = None
 
-        # Reverse
+        # reverse
         prev = None
-
         while second:
             tmp = second.next
             second.next = prev
             prev = second
             second = tmp
 
-        # merge
-        second = prev
         first = head
+        second = prev
+
+        # merge
         while first and second:
             tmp1 = first.next
             tmp2 = second.next
@@ -38,4 +38,3 @@ class Solution:
 
             first = tmp1
             second = tmp2
-        
