@@ -1,8 +1,7 @@
-// Last updated: 2/18/2025, 12:19:44 PM
+// Last updated: 2/18/2025, 12:54:18 PM
 class Solution:
     def smallestNumber(self, pattern: str) -> str:
         counts = {str(i):1 for i in range(1, 10)}
-        print(counts)
         n = len(pattern) + 1
         result = []
         def dfs(i, path):
