@@ -1,3 +1,4 @@
+// Last updated: 2/19/2025, 12:47:08 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -21,13 +22,13 @@ class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
         def dfs(root, subroot):
             # print(root.val, subroot.val)
-            if root is None:
-                return False
+            if root is None or subroot is None:
+                return root is None and subroot is None
 
             if not self.check(root, subroot):
                 return dfs(root.left, subroot) or dfs(root.right, subroot)
-            
-            return True
+            else:
+                return True
                 
 
 
