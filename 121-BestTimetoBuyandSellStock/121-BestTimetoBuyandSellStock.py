@@ -1,4 +1,4 @@
-// Last updated: 2/18/2025, 10:45:58 PM
+// Last updated: 2/18/2025, 10:46:00 PM
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         n = len(prices)
