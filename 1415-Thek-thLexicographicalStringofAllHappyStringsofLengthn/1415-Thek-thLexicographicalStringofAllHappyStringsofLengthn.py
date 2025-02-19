@@ -1,28 +1,37 @@
 // Last updated: 2/19/2025, 2:23:28 PM
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
-        if k > 3 * (2 ** (n - 1)):
-            return ''
+        total_elements = 3 * 2**(n-1)
+        if total_elements < k:
+            return ""
 
-        res = []
-        self.helper([], n, res)
-        return res[k - 1]
+        num_to_start = {
+            1: ["a"],
+            2: ["b"],
+            3: ["c"]
+        }
 
-    def helper(self, curr, n, res):
-        if len(curr) == n:
-            res.append(''.join(curr))
-            return
 
-        c = curr[-1] if curr else ''
-        if c != 'a':
-            curr.append('a')
-            self.helper(curr, n, res)
-            curr.pop()
-        if c != 'b':
-            curr.append('b')
-            self.helper(curr, n, res)
-            curr.pop()
-        if c != 'c':
-            curr.append('c')
-            self.helper(curr, n, res)
-            curr.pop()
+        start_path = num_to_start[math.ceil(k / (2**(n-1)))]
+        result = []
+        needed =  k % (2**(n-1))
+        if needed == 0:
+            needed = k
+
+        def dfs(path):
+            nonlocal needed
+            if needed > 0:
+                if len(path) == n:
+                    result.append("".join(path[:]))
+                    needed -= 1
+                    return 
+                
+                for letter in ["a", "b", "c"]:
+                    if letter != path[-1] :
+                        path.append(letter)
+                        dfs(path)
+                        path.pop()
+                        
+        dfs(start_path)
+        
+        return result[-1]
