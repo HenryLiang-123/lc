@@ -1,4 +1,4 @@
-// Last updated: 2/18/2025, 11:59:25 PM
+// Last updated: 2/18/2025, 11:59:28 PM
 class Solution:
     def trap(self, height: List[int]) -> int:
         left_max = [0]
@@ -14,7 +14,6 @@ class Solution:
 
         result = 0
 
-        print(left_max, right_max)
 
         for i in range(n):
             curr = max(min(left_max[i], right_max[i]) - height[i], 0)
