@@ -1,17 +1,23 @@
+// Last updated: 2/18/2025, 11:59:25 PM
 class Solution:
     def trap(self, height: List[int]) -> int:
+        left_max = [0]
+        right_max = [0]
         n = len(height)
-        max_left = [0 for _ in range(n)]
-        max_right = [0 for _ in range(n)]
-        rain = [0 for _ in range(n)]
-
         for i in range(1, n):
-            max_left[i] = max(max_left[i-1], height[i-1])
+            left_max.append(max(left_max[-1], height[i-1]))
 
         for i in reversed(range(n-1)):
-            max_right[i] = max(max_right[i+1], height[i+1])
+            right_max.append(max(right_max[-1], height[i+1]))
+
+        right_max = right_max[::-1]
+
+        result = 0
+
+        print(left_max, right_max)
 
         for i in range(n):
-            rain[i] = max(min(max_right[i], max_left[i]) - height[i], 0)
+            curr = max(min(left_max[i], right_max[i]) - height[i], 0)
+            result += curr
 
-        return sum(rain)
+        return result
