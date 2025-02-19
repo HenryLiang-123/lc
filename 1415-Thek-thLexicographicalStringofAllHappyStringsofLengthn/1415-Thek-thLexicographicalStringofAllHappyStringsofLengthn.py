@@ -1,4 +1,4 @@
-// Last updated: 2/19/2025, 1:16:20 PM
+// Last updated: 2/19/2025, 2:17:01 PM
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
         if k > 3 * (2 ** (n - 1)):
