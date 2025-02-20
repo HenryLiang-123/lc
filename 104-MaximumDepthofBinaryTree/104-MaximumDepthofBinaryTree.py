@@ -1,3 +1,4 @@
+// Last updated: 2/20/2025, 12:10:56 AM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -10,7 +11,6 @@ class Solution:
             if not root:
                 return 0
 
-            max_depth = float('-inf')
             
             left_depth = dfs(root.left)
             right_depth = dfs(root.right)
