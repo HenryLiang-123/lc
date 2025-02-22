@@ -1,38 +1,45 @@
+// Last updated: 2/22/2025, 3:28:01 PM
+from typing import Optional
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
 class Solution:
-    def __init__(self):
-        self.index = 0
+    def recoverFromPreorder(self, traversal: str) -> Optional[TreeNode]:
+        i = 0
+        n = len(traversal)
 
-    def recoverFromPreorder(self, traversal: str) -> TreeNode:
-        return self.helper(traversal, 0)
+        def dfs(depth):
+            nonlocal i
+            if i >= n:
+                return None
 
-    def helper(self, traversal, depth):
-        if self.index >= len(traversal):
-            return None
+            # Count dashes to determine the depth
+            start = i
+            while i < n and traversal[i] == "-":
+                i += 1
+            dashcount = i - start
 
-        dash_count = 0
-        while (
-            self.index + dash_count < len(traversal)
-            and traversal[self.index + dash_count] == "-"
-        ):
-            dash_count += 1
+            # If the depth doesn't match, backtrack
+            if dashcount != depth:
+                i -= dashcount  # Reset index
+                return None
 
-        # If the number of dashes doesn't match the current depth, return null
-        if dash_count != depth:
-            return None
+            # Read the number (multi-digit support)
+            start = i
+            while i < n and traversal[i].isdigit():
+                i += 1
+            value = int(traversal[start:i])
 
-        self.index += dash_count
+            # Create the current node
+            root = TreeNode(value)
+            root.left = dfs(depth + 1)
+            root.right = dfs(depth + 1)
 
-        # Extract the node value
-        value = 0
-        while self.index < len(traversal) and traversal[self.index].isdigit():
-            value = value * 10 + int(traversal[self.index])
-            self.index += 1
+            return root
 
-        # Create the current node
-        node = TreeNode(value)
-
-        # Recursively build the left and right subtrees
-        node.left = self.helper(traversal, depth + 1)
-        node.right = self.helper(traversal, depth + 1)
-
-        return node
+        return dfs(0)
