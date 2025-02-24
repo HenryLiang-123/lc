@@ -1,3 +1,4 @@
+// Last updated: 2/24/2025, 5:13:33 PM
 from collections import deque
 class Solution:
     def mostProfitablePath(self, edges: List[List[int]], bob: int, amount: List[int]) -> int:
