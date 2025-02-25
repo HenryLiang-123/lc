@@ -1,3 +1,4 @@
+// Last updated: 2/25/2025, 2:22:28 PM
 import heapq
 from collections import Counter
 class Solution:
@@ -13,14 +14,11 @@ class Solution:
                 continue
             for i in range(s, s + groupSize):
                 if i not in counts:
-                    print("first",i)
                     return False
                 if counts[i] - 1 < 0:
-                    print(i)
-                    print("second",counts[i])
+                    
                     return False
                 counts[i] -= 1
 
-            
-
+        
         return True
