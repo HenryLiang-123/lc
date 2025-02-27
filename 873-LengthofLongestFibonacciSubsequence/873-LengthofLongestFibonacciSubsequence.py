@@ -1,31 +1,33 @@
-// Last updated: 2/27/2025, 2:27:08 PM
-s = set(arr)
-m1 = {}  # keeps track of (x_1, x_2)
-m2 = []  # keeps track of (x_2, x_3)
-idx = 0
-for i in range(len(arr)):
-   for j in range(i+1, len(arr)):
-       if arr[i] + arr[j] in s:
-           m1[(arr[i], arr[j])] = idx
-           m2.append((arr[j], arr[i] + arr[j]))
-           idx += 1
+class Solution:
+    def lenLongestFibSubseq(self, arr: List[int]) -> int:
+        result = 0
+        n = len(arr)
+        s = set(arr)
+        # dp = [[0 for _ in range(n)] for _ in range(n)]
+        for i in range(n-1):
+            for j in range(i+1, n):
+                f1, f2 = arr[i], arr[j]
+                curr = 0
+                while f1 + f2 in s:
+                    curr += 1
+                    f1, f2 = f2, f1+f2
+                result = max(result, curr)
 
-m3 = {}  # all edges from (x_1, x_2, x_3) to (x_2, x_3, x_4)
-for i, k in enumerate(m2):
-   m3[i] = m1.get(k, None)
+        return result + 2 if result else 0
 
-to_remove = set()
-max_l = 3 if len(m3) else 0
-for k, v in m3.items():  # iterate over O(n^2) elements.
-# Each element will be looked at at most twice (once during the inner while loop)
-# (second time to check if it's been already looked at)
-   if k in to_remove:
-       continue
-   l = 3
-   while v is not None:
-       l += 1
-       to_remove.add(v)
-       v = m3[v]
-   if l > max_l:
-       max_l = l
-return max_l
+        # for i in range(2, n):
+        #     target = arr[i]
+        #     left, right = 0, i-1
+        #     while left < right:
+        #         if arr[left] + arr[right] == target:
+        #             dp[right][i] = dp[left][right] + 1
+        #             result = max(result, dp[right][i])
+        #             right -= 1
+        #             left += 1
+        #         elif arr[left] + arr[right] > target:
+        #             right -= 1
+        #         elif arr[left] + arr[right] < target:
+        #             left += 1
+
+        # return result + 2 if result else 0
+                
