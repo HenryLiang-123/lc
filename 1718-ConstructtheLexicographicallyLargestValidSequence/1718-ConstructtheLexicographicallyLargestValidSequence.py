@@ -1,48 +1,44 @@
-// Last updated: 2/24/2025, 8:27:09 PM
+// Last updated: 2/28/2025, 3:57:17 PM
 class Solution:
     def constructDistancedSequence(self, n: int) -> List[int]:
-        slots = 2 * (n-1) + 1
-        result = [0 for _ in range(slots)]
+        seen = set()
         choices = [i for i in reversed(range(1, n+1))]
         print(choices)
-        seen = set()
-        def dfs(idx):
-            if idx == slots:
+        slots = 2 * (n-1) + 1
+        result = [0 for _ in range(slots)]
+        def dfs(i):
+            if i >= slots:
                 return True
 
             for c in choices:
                 if c in seen:
                     continue
-                # print(idx + c)
-                if c > 1 and (idx + c >= len(result) or result[idx+c] > 0):
-                    continue
-
-                seen.add(c)
-                result[idx] = c
                 if c > 1:
-                    result[idx + c] = c
+                    if i + c >= slots or result[i] > 0 or result[i+c] > 0:
+                        continue
+                else:
+                    if result[i] > 0:
+                        continue
+                
+                result[i] = c
+                if c > 1:
+                    result[i+c] = c
+                seen.add(c)
 
-                next_spot = idx + 1
-                while next_spot < len(result) and result[next_spot]:
-                    next_spot += 1
+                next_slot = i
+                while next_slot < slots and result[next_slot]:
+                    next_slot += 1
 
-                if dfs(next_spot):
+                if dfs(next_slot):
                     return True
 
-                seen.remove(c)
-                result[idx] = 0
+                result[i] = 0
                 if c > 1:
-                    result[idx + c] = 0
-            
+                    result[i+c] = 0
+                seen.remove(c)
+
             return False
 
         dfs(0)
         return (result)
-                
-
-                
-
-
-
-
 
