@@ -1,28 +1,26 @@
+// Last updated: 2/28/2025, 3:37:34 PM
 class ProductOfNumbers:
 
     def __init__(self):
-        self.products = []
-        
+        self.running_prod = [1]
+
     def add(self, num: int) -> None:
-        if not self.products and num != 0:
-            self.products.append(num)
+        if num != 0:
+            to_add = num * self.running_prod[-1]
+            self.running_prod.append(to_add)
         else:
-            if num != 0:
-                self.products.append(self.products[-1] * num if self.products[-1] != 0 else num)
-            else:
-                self.products = []
-            
+            self.running_prod = [1]
 
     def getProduct(self, k: int) -> int:
-        n = len(self.products)
-        if k > n:
+        # print(self.running_prod)
+        if k > len(self.running_prod)-1:
             return 0
-        else:
-            if n-k-1 < 0:
-                result = self.products[-1]
-            else:
-                result = self.products[-1] / self.products[n-k-1]
-            return int(result)
+
+        n = len(self.running_prod)-1
+
+        return int(self.running_prod[-1] / self.running_prod[n-k])
+        
+
 
 # Your ProductOfNumbers object will be instantiated and called as such:
 # obj = ProductOfNumbers()
