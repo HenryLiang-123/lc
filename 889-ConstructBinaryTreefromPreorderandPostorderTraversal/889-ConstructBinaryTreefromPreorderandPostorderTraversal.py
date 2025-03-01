@@ -1,4 +1,4 @@
-// Last updated: 2/28/2025, 8:25:45 PM
+// Last updated: 2/28/2025, 8:28:26 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -16,7 +16,7 @@ class Solution:
                 return None
             # print(pre_i)
             root = TreeNode(preorder[pre_i])
-            if pre_i != pre_j:
+            if pre_i + 1 <= pre_j:
                 next_node = preorder[pre_i + 1]
                 node_in_post = mapping[next_node]
                 length = node_in_post - post_i + 1
