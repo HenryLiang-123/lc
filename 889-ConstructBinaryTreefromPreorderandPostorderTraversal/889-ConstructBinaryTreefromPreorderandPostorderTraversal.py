@@ -1,4 +1,4 @@
-// Last updated: 2/28/2025, 8:28:30 PM
+// Last updated: 2/28/2025, 8:28:34 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -12,7 +12,6 @@ class Solution:
         def dfs(pre_i, pre_j, post_i, post_j):
             
             if pre_i > pre_j or post_i > post_j:
-                print(pre_i, pre_j, post_i, post_j)
                 return None
             # print(pre_i)
             root = TreeNode(preorder[pre_i])
