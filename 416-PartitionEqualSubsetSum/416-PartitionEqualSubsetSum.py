@@ -1,3 +1,4 @@
+// Last updated: 3/1/2025, 4:16:35 PM
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         if sum(nums) % 2 != 0:
@@ -10,7 +11,7 @@ class Solution:
             if (path_sum, len(path)) in memo:
                 return memo[(path_sum, len(path))]
 
-            if len(path) >= n:
+            if len(path) >= n or path_sum > target:
                 memo[(path_sum, len(path))] = False
                 return False
 
