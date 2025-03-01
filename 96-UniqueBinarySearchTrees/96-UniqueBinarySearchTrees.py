@@ -1,4 +1,4 @@
-// Last updated: 2/18/2025, 4:30:38 PM
+// Last updated: 2/28/2025, 7:31:56 PM
 class Solution:
     def numTrees(self, n: int) -> int:
         memo = {}
@@ -11,12 +11,13 @@ class Solution:
 
             res = 0
             for i in range(left, right+1):
-                left_tree = dfs(left, i-1)
-                right_tree = dfs(i+1, right)
-                res += left_tree * right_tree
-
+                left_trees = dfs(left, i-1)
+                right_trees = dfs(i+1, right)
+                res += left_trees * right_trees
+                
             memo[(left, right)] = res
-
             return memo[(left, right)]
 
-        return dfs(1, n)
+        return (dfs(0, n-1))
+
+            
