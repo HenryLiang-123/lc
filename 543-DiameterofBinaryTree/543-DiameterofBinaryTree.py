@@ -1,4 +1,4 @@
-// Last updated: 2/22/2025, 4:00:43 PM
+// Last updated: 3/2/2025, 4:04:43 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,7 +7,7 @@
 #         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        result = float('-inf')
+        result = 0
         def dfs(root):
             nonlocal result
             if not root:
@@ -22,6 +22,3 @@ class Solution:
 
         dfs(root)
         return result
-
-
-            
