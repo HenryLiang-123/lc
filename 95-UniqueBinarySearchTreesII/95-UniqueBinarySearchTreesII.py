@@ -1,4 +1,4 @@
-// Last updated: 3/4/2025, 1:32:30 PM
+// Last updated: 3/4/2025, 1:33:05 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,9 +7,13 @@
 #         self.right = right
 class Solution:
     def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
-        
+        memo = {}
         def dfs(left, right):
+            if (left, right) in memo:
+                return memo[(left, right)]
+
             if left > right:
+
                 return [None]
 
             res = []
@@ -22,6 +26,7 @@ class Solution:
                         root.left = l
                         root.right = r
                         res.append(root)
+            memo[(left, right)] = res
             return res
 
         return dfs(0, n-1)
