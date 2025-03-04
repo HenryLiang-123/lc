@@ -1,3 +1,4 @@
+// Last updated: 3/3/2025, 7:11:06 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,22 +8,19 @@
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         result = []
-        def dfs(root):
-            if not root:
-                return
-
-            left = dfs(root.left)
-            # if left:
-            #     result.append(left.val)
+        stack = []
+        while True:
+            while root:
+                stack.append(root)
+                root = root.left
+            if not stack:
+                break
+            root = stack.pop()
             result.append(root.val)
-            right = dfs(root.right)
-            # if right:
-            #     result.append(right.val)
-            
-            return root
-
-        dfs(root)
+            root = root.right
+        
         return result
+
 
 
             
