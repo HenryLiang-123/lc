@@ -1,35 +1,33 @@
-from collections import defaultdict
+// Last updated: 3/4/2025, 11:29:02 AM
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         adj_list = defaultdict(list)
 
-        for i in prerequisites:
-            end = i[0]
-            start = i[1]
-            adj_list[start].append(end)
+        for dst, src in prerequisites:
+            adj_list[src].append(dst)
 
         seen = set()
-        def dfs(course):
-            if course in seen:
-                return False
-            if len(seen) == numCourses:
+        def hasCycle(node, path):
+            if node in path:
                 return True
-            seen.add(course)
-            for nei in adj_list[course]:
-                result = dfs(nei)
-                if not result:
-                    return False
-                else:
-                    adj_list[course] = []
 
-            seen.remove(course)
-            return True
-
-        for i in list(adj_list.keys()):
-            result = dfs(i)
-            if not result:
+            if node in seen:
                 return False
+
+            path.add(node)
+            
+            for nei in adj_list[node]:
+                if hasCycle(nei, path):
+                    return True
+            seen.add(node)
+            path.remove(node)
+            return False
+
+        for i in range(numCourses):
+            if i not in seen:
+                path = set()
+                if hasCycle(i, path):
+                    return False
 
         return True
-        
 
