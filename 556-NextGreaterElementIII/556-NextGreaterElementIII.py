@@ -1,3 +1,4 @@
+// Last updated: 3/4/2025, 11:43:22 PM
 class Solution:
     def nextGreaterElement(self, n: int) -> int:
         # find first non-increasing digit going backwards
@@ -24,7 +25,7 @@ class Solution:
                 j -= 1
 
         digits[i], digits[j] = digits[j], digits[i]
-        sorted_part = sorted(digits[i+1:])
+        sorted_part = digits[i+1:][::-1]
         digits[i+1:] = sorted_part
         result = int("".join(digits))
         if result > 2**31 - 1:
