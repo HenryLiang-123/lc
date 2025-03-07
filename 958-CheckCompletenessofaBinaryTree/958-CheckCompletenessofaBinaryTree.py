@@ -1,4 +1,4 @@
-// Last updated: 3/3/2025, 4:58:25 PM
+// Last updated: 3/6/2025, 8:51:29 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -10,23 +10,27 @@ class Solution:
     def isCompleteTree(self, root: Optional[TreeNode]) -> bool:
         def bfs(root):
             q = deque([root])
-            seen_null = False
+            seen_none = False
             while q:
                 node = q.popleft()
-                if node.right and not node.left:
-                    return False
-                if seen_null and (node.left or node.right):
-                    return False
+                
 
-                if node.left:
+                if not node:
+                    seen_none = True
+                else:
+                    if node.left is None and node.right is not None:
+                        return False
+
+                    if node and seen_none:
+                        return False
+                    # if node.left:
                     q.append(node.left)
-                else:
-                    seen_null = True
 
-                if node.right:
-                    q.append(node.right)
-                else:
-                    seen_null = True
+                # if node.right:
+                    q.append(node.right)                
+                
+
+                
 
             return True
 
