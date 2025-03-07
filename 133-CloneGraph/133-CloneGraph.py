@@ -1,4 +1,4 @@
-// Last updated: 3/7/2025, 5:08:09 PM
+// Last updated: 3/7/2025, 5:14:37 PM
 """
 # Definition for a Node.
 class Node:
@@ -11,30 +11,40 @@ from typing import Optional
 from collections import deque
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        old_to_new = {}
-        def bfs(root):
+        seen = {}
+        def dfs(root):
             if not root:
-                return root 
-            old_to_new[root] = Node(root.val, [])
-            q = deque([root]) # old node
-            while q:
-                old_node = q.popleft()
-                for nei in old_node.neighbors:
-                    if nei not in old_to_new:
-                        new_node = Node(nei.val, [])
-                        old_to_new[nei] = new_node
-                        q.append(nei)
-                    # else:
-                    old_to_new[old_node].neighbors.append(old_to_new[nei])
-                        # print(old_node.val)
-                        # if old_to_new[old_node] not in old_to_new[nei].neighbors:
-                        #     old_to_new[nei].neighbors.append(old_to_new[old_node])
-                        # if old_to_new[nei] not in old_to_new[old_node].neighbors:
-                        #     old_to_new[old_node].neighbors.append(old_to_new[nei])
+                return root
 
-            return old_to_new[root]
+            if root in seen:
+                return seen[root]
 
-        return (bfs(node))
+            new_node = Node(root.val, [])
+            seen[root] = new_node
+            for nei in root.neighbors:
+                new_node.neighbors.append(dfs(nei))
+                
+            
+            return new_node
+
+        return dfs(node)
+        # def bfs(root):
+        #     if not root:
+        #         return root 
+        #     old_to_new[root] = Node(root.val, [])
+        #     q = deque([root]) # old node
+        #     while q:
+        #         old_node = q.popleft()
+        #         for nei in old_node.neighbors:
+        #             if nei not in old_to_new:
+        #                 new_node = Node(nei.val, [])
+        #                 old_to_new[nei] = new_node
+        #                 q.append(nei)
+        #             old_to_new[old_node].neighbors.append(old_to_new[nei])  
+
+        #     return old_to_new[root]
+
+        # return (bfs(node))
 
 
                     
