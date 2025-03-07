@@ -1,3 +1,4 @@
+// Last updated: 3/7/2025, 5:03:10 PM
 """
 # Definition for a Node.
 class Node:
@@ -19,7 +20,6 @@ class Solution:
             q = deque([root]) # old node
             while q:
                 old_node = q.popleft()
-                print(old_node.val)
                 for nei in old_node.neighbors:
                     if nei not in old_to_new:
                         new_node = Node(nei.val, [])
