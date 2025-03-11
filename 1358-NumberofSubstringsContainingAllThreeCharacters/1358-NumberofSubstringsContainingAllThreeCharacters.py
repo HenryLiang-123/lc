@@ -1,3 +1,4 @@
+// Last updated: 3/11/2025, 3:06:10 PM
 class Solution:
     def numberOfSubstrings(self, s: str) -> int:
         # find invalid
@@ -9,6 +10,7 @@ class Solution:
                 if value < 1:
                     return False
             return True
+            
         result = 0
         for right in range(n):
             d[s[right]] += 1
