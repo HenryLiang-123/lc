@@ -1,56 +1,51 @@
+// Last updated: 3/12/2025, 4:52:15 PM
 class Solution:
-    def _isVowel(self, c: str) -> bool:
-        return c == "a" or c == "e" or c == "i" or c == "o" or c == "u"
-
     def countOfSubstrings(self, word: str, k: int) -> int:
-        num_valid_substrings = 0
-        start = end = 0
-        vowel_count = {}  # Dictionary to keep counts of vowels
-        consonant_count = 0  # Count of consonants
-        next_consonant = [0] * len(
-            word
-        )  # Array to compute index of next consonant for all indices
-        next_consonant_index = len(word)
+        n = len(word)
 
-        for i in range(len(word) - 1, -1, -1):
-            next_consonant[i] = next_consonant_index
-            if not self._isVowel(word[i]):
-                next_consonant_index = i
+        def is_vowel(element):
+            return element in set(['a', 'e', 'i', 'o', 'u'])
 
-        while end < len(word):
-            new_letter = word[end]
-            if self._isVowel(new_letter):
-                vowel_count[new_letter] = vowel_count.get(new_letter, 0) + 1
-            else:
-                consonant_count += 1
+        def is_valid(d, count_const, k):
+            for key, value in d.items():
+                if value < 1:
+                    return False
 
-            while (
-                consonant_count > k
-            ):  # Shrink window if too many consonants are present
-                start_letter = word[start]
-                if self._isVowel(start_letter):
-                    vowel_count[start_letter] -= 1
-                    if vowel_count[start_letter] == 0:
-                        del vowel_count[start_letter]
+            return count_const >= k
+
+        
+        def solve(k):
+            left = 0
+            d = {'a':0, 'e':0, 'i':0, 'o':0, 'u':0} # vowel -> count
+            consonant = 0
+            result = 0
+            for right in range(n):
+                if is_vowel(word[right]):
+                    d[word[right]] += 1
                 else:
-                    consonant_count -= 1
-                start += 1
+                    consonant += 1
 
-            while (
-                start < len(word)
-                and len(vowel_count) == 5
-                and consonant_count == k
-            ):  # Try to shrink if window is valid
-                num_valid_substrings += next_consonant[end] - end
-                start_letter = word[start]
-                if self._isVowel(start_letter):
-                    vowel_count[start_letter] -= 1
-                    if vowel_count[start_letter] == 0:
-                        del vowel_count[start_letter]
-                else:
-                    consonant_count -= 1
-                start += 1
+                # if consonant > k:
+                #     while left < right and consonant > k:
+                #         if is_vowel(word[left]):
+                #             d[word[left]] -= 1
+                #         else:
+                #             consonant -= 1 
+                #         left += 1
 
-            end += 1
+                # else:
+                while left < right and is_valid(d, consonant, k):
+                    result += len(word) - right
+                    if is_vowel(word[left]):
+                        d[word[left]] -= 1
+                    else:
+                        consonant -= 1 
+                    left += 1
 
-        return num_valid_substrings
+            return result
+        # print(solve(k), solve(k+1))
+        return solve(k) - solve(k+1)
+
+
+        
+            
