@@ -1,4 +1,4 @@
-// Last updated: 3/13/2025, 2:28:51 PM
+// Last updated: 3/13/2025, 2:31:25 PM
 class Solution:
     def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
 
@@ -11,11 +11,13 @@ class Solution:
                 diff_arr[start] -= value
                 if end < n-1:
                     diff_arr[end+1] += value
-            for i in range(1, n):
-                diff_arr[i] = diff_arr[i-1] + diff_arr[i]
 
+            # for i in range(1, n):
+            #     diff_arr[i] = diff_arr[i-1] + diff_arr[i]
+            curr = 0
             for i in range(n):
-                if diff_arr[i] + nums[i] > 0:
+                curr += diff_arr[i]
+                if curr + nums[i] > 0:
                     return False
 
             return True
