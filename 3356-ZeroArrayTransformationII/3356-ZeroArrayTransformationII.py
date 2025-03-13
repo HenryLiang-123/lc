@@ -1,4 +1,4 @@
-// Last updated: 3/13/2025, 2:31:25 PM
+// Last updated: 3/13/2025, 2:42:31 PM
 class Solution:
     def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
 
@@ -25,6 +25,9 @@ class Solution:
         left = 0
         right = len(queries)
 
+        if not can_achieve(right):
+            return -1
+
         while left <= right:
             mid = (left + right) // 2
             if can_achieve(mid):
@@ -32,4 +35,4 @@ class Solution:
             else:
                 left = mid + 1
 
-        return left if left <= len(queries) else -1
+        return left
