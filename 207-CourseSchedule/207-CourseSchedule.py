@@ -1,4 +1,4 @@
-// Last updated: 3/4/2025, 11:29:02 AM
+// Last updated: 3/14/2025, 5:59:55 PM
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         adj_list = defaultdict(list)
@@ -7,27 +7,26 @@ class Solution:
             adj_list[src].append(dst)
 
         seen = set()
-        def hasCycle(node, path):
+        def has_cycle(node, path):
+            if node in seen:
+                # we've processed this, and its good
+                return False
+
             if node in path:
                 return True
 
-            if node in seen:
-                return False
-
             path.add(node)
-            
             for nei in adj_list[node]:
-                if hasCycle(nei, path):
+                if has_cycle(nei, path):
                     return True
-            seen.add(node)
+
             path.remove(node)
+            seen.add(node)
             return False
 
         for i in range(numCourses):
             if i not in seen:
-                path = set()
-                if hasCycle(i, path):
+                if has_cycle(i, set()):
                     return False
 
         return True
-
