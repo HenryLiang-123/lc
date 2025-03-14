@@ -1,19 +1,21 @@
+// Last updated: 3/14/2025, 5:44:03 PM
 class Solution:
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
-        furthest = 0
-        end_of_level = 0
-        level = 0
-        for i in range(n-1):
-            furthest = max(furthest, i + nums[i])
+        left = 0
+        right = 0
+        res = 0
 
-            if i == end_of_level:
-                level += 1
-                end_of_level = furthest
+        while right < n-1:
+            farthest = 0
+            for i in range(left, right + 1):
+                farthest = max(farthest, i + nums[i])
 
-        return level
+            left = right + 1
+            right = farthest
+            res += 1
 
-
+        return res
 
 
 
