@@ -1,16 +1,22 @@
+// Last updated: 3/14/2025, 4:07:53 PM
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+        
         n = len(nums)
-        dp = [0 for _ in range(n+1)]
-        prev_min = [0 for _ in range(n+1)]
-        prev_max = [0 for _ in range(n+1)]
-        dp[0] = 1
-        prev_max[0] = 1
-        prev_min[0] = 1
-        for i in range(1, n+1):
-            prev_min[i] = min(nums[i-1], prev_min[i-1] * nums[i-1], prev_max[i-1] * nums[i-1])
-            prev_max[i] = max(nums[i-1], prev_max[i-1] * nums[i-1], prev_min[i-1] * nums[i-1])
-            dp[i] = max(prev_min[i-1] * nums[i-1], prev_max[i-1] * nums[i-1], nums[i-1])
+        max_so_far = nums[0]
+        min_so_far = nums[0]
+        result = nums[0]
 
+        if n == 1:
+            return max_so_far
+    
+        for i in range(1, n):
+            temp = max_so_far
+            max_so_far = max(nums[i], max_so_far * nums[i], min_so_far * nums[i])
+            min_so_far = min(nums[i], temp * nums[i], min_so_far * nums[i])
+
+            result = max(result, max_so_far, min_so_far)
             
-        return max(dp[1:])
+
+
+        return result
