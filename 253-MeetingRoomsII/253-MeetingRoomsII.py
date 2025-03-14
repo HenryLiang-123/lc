@@ -1,3 +1,4 @@
+// Last updated: 3/14/2025, 6:19:17 PM
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         starts = sorted([x[0] for x in intervals])
