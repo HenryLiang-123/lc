@@ -1,3 +1,4 @@
+// Last updated: 3/15/2025, 1:57:58 PM
 class Solution:
     def minCapability(self, nums: List[int], k: int) -> int:
         n = len(nums)
@@ -12,7 +13,8 @@ class Solution:
                         idx.append(i)
 
             # if len(idx) == 2:
-            #     return idx[1] - idx[0] > 1
+            #     print((idx[1] - idx[0])>1)
+            #     return (idx[1] - idx[0]) > 1
             
             return len(idx) >= k
 
