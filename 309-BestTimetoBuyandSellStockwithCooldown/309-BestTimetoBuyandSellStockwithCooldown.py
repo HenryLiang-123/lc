@@ -1,3 +1,4 @@
+// Last updated: 3/15/2025, 9:00:43 PM
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         bought = -prices[0]
@@ -13,6 +14,5 @@ class Solution:
             sold = max(sold, temp_bought + prices[i])
             cooled = max(cooled, temp_sold)
             
-            print(bought, sold, cooled)
 
         return max(bought, sold, cooled, 0)
