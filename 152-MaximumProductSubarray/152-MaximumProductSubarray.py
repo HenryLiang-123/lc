@@ -1,4 +1,4 @@
-// Last updated: 3/15/2025, 9:14:34 PM
+// Last updated: 3/15/2025, 9:14:46 PM
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         max_so_far = nums[0]
