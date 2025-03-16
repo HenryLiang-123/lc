@@ -1,4 +1,4 @@
-// Last updated: 3/16/2025, 2:06:53 PM
+// Last updated: 3/16/2025, 2:06:59 PM
 class Solution:
     def checkValidString(self, s: str) -> bool:
         # close left when we have a right
@@ -26,7 +26,6 @@ class Solution:
                 else:
                     return False
 
-        print(left_stack, star_stack)
         if not left_stack:
             return True
 
