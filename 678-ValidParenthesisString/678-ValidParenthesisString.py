@@ -1,34 +1,45 @@
-from collections import deque
+// Last updated: 3/16/2025, 2:06:53 PM
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        left_stack = deque([])
-        star_stack = deque([])
+        # close left when we have a right
+        # if we can't, try to close with star
+        # if we can't false
+
+        # at the end, there may be left over lefts.
+        # if the stars appear after, we can close. Else, False
+
+        left_stack = [] #idx
+        star_stack = [] #idx
 
         n = len(s)
 
         for i in range(n):
-            curr = s[i]
-            if curr == "(":
+            if s[i] == "(":
                 left_stack.append(i)
-            elif curr == "*":
+            elif s[i] == "*":
                 star_stack.append(i)
             else:
-                # curr = ')'
                 if left_stack:
                     left_stack.pop()
-                elif not left_stack and star_stack:
+                elif star_stack:
                     star_stack.pop()
-                elif not left_stack and not star_stack:
+                else:
                     return False
+
         print(left_stack, star_stack)
-        if left_stack:
-            if len(left_stack) > len(star_stack):
+        if not left_stack:
+            return True
+
+        if len(left_stack) > len(star_stack):
+            return False
+
+        while left_stack:
+            left_idx = left_stack.pop()
+            star_idx = star_stack.pop()
+            
+            if left_idx > star_idx:
                 return False
-            else:
-                while left_stack:
-                    left_top = left_stack.pop()
-                    star_top = star_stack.pop()
-                    if left_top > star_top:
-                        return False
+
 
         return True
+
