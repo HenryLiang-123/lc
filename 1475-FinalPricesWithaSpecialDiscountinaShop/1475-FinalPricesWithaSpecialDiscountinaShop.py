@@ -1,18 +1,27 @@
+// Last updated: 3/15/2025, 10:07:14 PM
 class Solution:
     def finalPrices(self, prices: List[int]) -> List[int]:
-        new = []
+        stack = [(prices[0], 0)]
         n = len(prices)
-        for i in range(n):
-            idx = None
-            for j in range(i+1, n):
-                if prices[j] <= prices[i]:
-                    idx = j
-                    break
-            if idx:
-                discount = prices[idx]
-            else:
-                discount = 0
+        result = [0 for _ in range(n)]
+        insertions = []
+        for i in range(1, n):
+            
+            while stack and prices[i] <= stack[-1][0]:
+                top, idx = stack.pop()
+                final = top - prices[i]
+                insertions.append((final, idx))
 
-            new.append(prices[i] - discount)
+            stack.append((prices[i], i))
+            # result += curr_result[::-1]
+        intermediate = stack + insertions
 
-        return new            
+        for element, loc in intermediate:
+            result[loc] = element
+
+        return result
+
+        # for element, loc in stack:
+        #     result.insert(loc, element)
+
+        # return result
