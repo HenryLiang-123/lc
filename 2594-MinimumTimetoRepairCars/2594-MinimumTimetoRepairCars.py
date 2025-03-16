@@ -1,3 +1,4 @@
+// Last updated: 3/16/2025, 1:34:46 PM
 import math
 class Solution:
     def repairCars(self, ranks: List[int], cars: int) -> int:
@@ -6,7 +7,6 @@ class Solution:
         # max time
         right = max(ranks) * pow(math.ceil(cars / n), 2)
 
-        print(right)
 
         def can_repair(time):
             repaired = 0
