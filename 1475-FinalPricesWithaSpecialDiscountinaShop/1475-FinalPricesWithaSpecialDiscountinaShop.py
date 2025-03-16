@@ -1,4 +1,4 @@
-// Last updated: 3/15/2025, 10:07:14 PM
+// Last updated: 3/15/2025, 10:07:16 PM
 class Solution:
     def finalPrices(self, prices: List[int]) -> List[int]:
         stack = [(prices[0], 0)]
