@@ -1,4 +1,4 @@
-// Last updated: 3/18/2025, 2:04:47 PM
+// Last updated: 3/18/2025, 2:07:01 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -8,27 +8,8 @@
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         # old_root = root.copy()
-        def copy_tree(node):
-            if not node:
-                return None
 
-            new_node = TreeNode(node.val)
-            new_node.left = copy_tree(node.left)
-            new_node.right = copy_tree(node.right)
-
-            return new_node
-
-        old_root = copy_tree(root)
-            
-        def invert(node):
-            if not node:
-                return None
-            
-            node.right, node.left = invert(node.left), invert(node.right)
-
-            return node
-
-        def is_same(root1, root2):
+        def is_mirror(root1, root2):
             if root1 is None and root2 is None:
                 return True
             
@@ -36,10 +17,10 @@ class Solution:
                 return False
 
             if root1.val == root2.val:
-                return is_same(root1.left, root2.left) and is_same(root1.right, root2.right)
+                return is_mirror(root1.left, root2.right) and is_mirror(root1.right, root2.left)
             
             return False
 
-        inverted = invert(root)
+        # inverted = invert(root)
 
-        return is_same(inverted, old_root)
+        return is_mirror(root, root)
