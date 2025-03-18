@@ -1,3 +1,4 @@
+// Last updated: 3/17/2025, 11:58:55 PM
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
         n = len(s1)
@@ -17,10 +18,8 @@ class Solution:
             if s1[i-1] == s3[i-1] and dp[0][i-1]:
                 dp[0][i] = True
 
-        print(dp)
 
         for i in range(1, m+1):
-            print(i, s2[i-1],s3[i-1], dp[i-1][0])
             if s2[i-1] == s3[i-1] and dp[i-1][0]:
                 dp[i][0] = True
 
@@ -32,5 +31,4 @@ class Solution:
                 if dp[i][j-1] and s1[j-1] == s3[i+j-1]:
                     dp[i][j] = True
 
-        print(dp)
         return dp[-1][-1]
