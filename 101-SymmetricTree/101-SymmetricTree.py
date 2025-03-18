@@ -1,3 +1,4 @@
+// Last updated: 3/18/2025, 2:04:47 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -40,7 +41,5 @@ class Solution:
             return False
 
         inverted = invert(root)
-        print(inverted == old_root)
-        print(old_root)
 
         return is_same(inverted, old_root)
