@@ -1,4 +1,4 @@
-// Last updated: 3/18/2025, 12:28:07 AM
+// Last updated: 3/18/2025, 12:28:55 AM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,26 +7,26 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        def dfs(node, prev_max):
+        def dfs(root, path_max):
 
-            if node is None:
+            if not root:
                 return 0
-            
-            if prev_max > node.val:
-                count = 0
-            else:
-                count = 1
 
-            prev_max = max(prev_max, node.val)
-            # count = 1
-            left = dfs(node.left, prev_max)
-            right = dfs(node.right, prev_max)
+            result = 0
 
-            count += left + right
+            if root.val >= path_max:
+                result += 1
+                path_max = root.val
 
-            return count
+            left = dfs(root.left, path_max)
+            right = dfs(root.right, path_max)
+
+            return result + left + right
 
         return dfs(root, root.val)
 
+            
+
+            
 
             
