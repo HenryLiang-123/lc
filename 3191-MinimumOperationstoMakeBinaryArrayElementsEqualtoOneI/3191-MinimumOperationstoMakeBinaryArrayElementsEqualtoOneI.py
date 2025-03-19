@@ -1,3 +1,4 @@
+// Last updated: 3/19/2025, 1:55:30 PM
 class Solution:
     def minOperations(self, nums: List[int]) -> int:
         left = 0
@@ -18,7 +19,7 @@ class Solution:
                 left += 1
 
             
-        return operations if nums == [1] * n else -1             
+        return operations if sum(nums) ==  n else -1             
 
 
                         
