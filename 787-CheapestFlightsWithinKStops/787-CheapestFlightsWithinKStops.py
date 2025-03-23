@@ -1,38 +1,40 @@
-# Last updated: 3/23/2025, 3:33:07 PM
-from collections import deque
+# Last updated: 3/23/2025, 3:54:32 PM
+import heapq
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        adj_list = {}
+        adj_list = defaultdict(list)
         for i in range(len(flights)):
-            start, end, price = flights[i]
-            if start not in adj_list:
-                adj_list[start] = [(end, price)]
-            else:
-                adj_list[start].append((end, price))
+            start, end, price = flights[i]  
+            adj_list[start].append((end, price))
 
-        cost_to_node = [float("inf") for _ in range(n)]
+        cost_to_node = {(i,0):float("inf") for i in range(n)}
+        cost_to_node[(src, 0)] = 0
         
         def bfs():
-            q = deque([(src, 0, 0)])
-            min_cost = float("inf")
+            q = [(0, src, 0)] # cost, node, level
+            heapq.heapify(q)
             while q:
-                node, cost, level = q.popleft()
+                cost, node, level = heapq.heappop(q)
                 if node == dst:
-                    min_cost = min(min_cost, cost_to_node[node])
-                    # return cost_to_node[node]
-                if level < k + 1:
-                    if node in adj_list:
-                        for nei, price in adj_list[node]:
-                            if cost + price < cost_to_node[nei]:
-                                cost_to_node[nei] = cost + price
-                                q.append((nei, cost + price, level + 1))
+                    return cost
+                if cost > cost_to_node[(node, level)]:
+                    continue
+                if level > k:
+                    continue
 
-            return min_cost
+                for nei, price in adj_list[node]:
+                    if cost + price < cost_to_node.get((nei, level+1), float('inf')):
+                        cost_to_node[(nei, level+1)] = cost + price
+                        heapq.heappush(q, (cost + price, nei, level + 1))
 
-        result = bfs()
-        if result == float("inf"):
+
             return -1
-        return result
+        return bfs()
+        # result = cost_to_node[dst]
+
+        # if result == float("inf"):
+        #     return -1
+        # return result
                     
 
 
