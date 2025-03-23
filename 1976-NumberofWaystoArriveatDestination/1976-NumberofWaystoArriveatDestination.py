@@ -1,4 +1,4 @@
-# Last updated: 3/23/2025, 3:01:03 PM
+# Last updated: 3/23/2025, 3:10:57 PM
 import heapq
 class Solution:
     def countPaths(self, n: int, roads: List[List[int]]) -> int:
