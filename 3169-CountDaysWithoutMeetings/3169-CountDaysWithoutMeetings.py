@@ -1,4 +1,4 @@
-# Last updated: 3/24/2025, 12:42:09 PM
+# Last updated: 3/24/2025, 12:42:14 PM
 class Solution:
     def countDays(self, days: int, meetings: List[List[int]]) -> int:
         # sort by start, merge
@@ -16,6 +16,5 @@ class Solution:
                 merged.append(curr_meeting)
                 
         res += days - merged[-1][1]
-        print(merged)
 
         return res
