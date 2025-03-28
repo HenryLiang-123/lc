@@ -1,26 +1,21 @@
-# Last updated: 3/27/2025, 4:55:59 PM
+# Last updated: 3/28/2025, 1:55:48 PM
+from collections import Counter
 class Solution:
     def minimumIndex(self, nums: List[int]) -> int:
-        first_map = defaultdict(int)
-        second_map = defaultdict(int)
+        counts = Counter(nums)
+        mode = max(counts, key = counts.get)
+        mode_counts = counts[mode]
+
         n = len(nums)
+        curr_count = 0
 
-        # Add all elements of nums to second_map
-        for num in nums:
-            second_map[num] += 1
+        for i in range(n):
+            window = i+1
+            if nums[i] == mode:
+                curr_count += 1
+            
+            # test validity
+            if curr_count * 2 > window and (mode_counts - curr_count) * 2 > (n-i-1):
+                return i
 
-        for index in range(n):
-            # Create split at current index
-            num = nums[index]
-            second_map[num] -= 1
-            first_map[num] += 1
-
-            # Check if valid split
-            if (
-                first_map[num] * 2 > index + 1
-                and second_map[num] * 2 > n - index - 1
-            ):
-                return index
-
-        # No valid split exists
         return -1
