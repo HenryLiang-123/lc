@@ -1,33 +1,30 @@
-# Last updated: 3/30/2025, 2:12:47 PM
+# Last updated: 3/30/2025, 2:30:41 PM
 class Solution:
     def shortestWay(self, source: str, target: str) -> int:
+        def is_valid(s, t):
+            i, j = 0, 0 #s, t
 
-        # To check if to_check is subsequence of in_string
-        def is_subsequence(to_check, in_string):
-            i = j = 0
-            while i < len(to_check) and j < len(in_string):
-                if to_check[i] == in_string[j]:
+            while i < len(s) and j < len(t):
+                if s[i] == t[j]:
                     i += 1
                 j += 1
 
-            return i == len(to_check)
+            return i == len(s)
 
-        # Set of all characters of the source. We could use a boolean array as well.
-        source_chars = set(source)
+        letters = set(source)
+        targets = set(target)
 
-        # Check if all characters of the target are present in the source
-        # If any character is not present, return -1
-        for char in target:
-            if char not in source_chars:
+        for i in target:
+            if i not in letters:
                 return -1
 
-        # Concatenate source until the target is a subsequence
-        # of the concatenated string
-        concatenated_source = source
-        count = 1
-        while not is_subsequence(target, concatenated_source):
-            concatenated_source += source
-            count += 1
+        result = 1
+        concated = source
+        while not is_valid(target, concated):
+            concated += source
+            result += 1
 
-        # Number of concatenations done
-        return count
+        return result
+
+        
+
