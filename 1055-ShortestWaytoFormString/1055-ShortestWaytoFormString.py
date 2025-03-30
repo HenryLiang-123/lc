@@ -1,4 +1,4 @@
-# Last updated: 3/29/2025, 6:43:40 PM
+# Last updated: 3/30/2025, 2:12:47 PM
 class Solution:
     def shortestWay(self, source: str, target: str) -> int:
 
