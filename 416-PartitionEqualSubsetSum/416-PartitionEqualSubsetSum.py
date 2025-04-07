@@ -1,4 +1,4 @@
-// Last updated: 3/1/2025, 4:16:35 PM
+# Last updated: 4/7/2025, 12:35:32 PM
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         if sum(nums) % 2 != 0:
