@@ -1,36 +1,36 @@
-# Last updated: 4/7/2025, 12:35:32 PM
+# Last updated: 4/7/2025, 12:43:31 PM
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
+        memo = {}
+        # nums.sort()
         if sum(nums) % 2 != 0:
             return False
 
-        target = sum(nums) // 2
         n = len(nums)
-        memo = {}
-        def dfs(start, path_sum, path):
-            if (path_sum, len(path)) in memo:
-                return memo[(path_sum, len(path))]
 
-            if len(path) >= n or path_sum > target:
-                memo[(path_sum, len(path))] = False
+        target = sum(nums) // 2
+        def dfs(start, path_sum, path_len):
+            if (path_len, path_sum) in memo:
+                return memo[(path_len, path_sum)]
+
+            if path_sum > target:
+                memo[(path_len, path_sum)] = False
                 return False
 
             if path_sum == target:
-                memo[(path_sum, len(path))] = True
+                memo[(path_len, path_sum)] = True
                 return True
 
             for i in range(start, n):
-                curr = nums[i]
-                path.append(curr)
-                path_sum += curr
-                if dfs(i+1, path_sum, path):
-                    memo[(path_sum, len(path))] = True
+                path_sum += nums[i]
+                path_len += 1
+                if dfs(i+1, path_sum, path_len):
+                    memo[(path_len, path_sum)] = True
                     return True
+                path_sum -= nums[i]
+                path_len -= 1
 
-                path.pop()
-                path_sum -= curr
-            
-            memo[(path_sum, len(path))] = False
+            memo[(path_len, path_sum)] = False
             return False
-        
-        return dfs(0, 0, [])
+
+        return dfs(0, 0, 0)
