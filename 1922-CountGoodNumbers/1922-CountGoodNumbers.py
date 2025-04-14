@@ -1,4 +1,4 @@
-# Last updated: 4/13/2025, 10:47:23 PM
+# Last updated: 4/13/2025, 10:47:57 PM
 class Solution:
     def countGoodNumbers(self, n: int) -> int:
         mod = 10**9 + 7
